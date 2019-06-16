@@ -46,8 +46,8 @@ class Model():
 
         y_pred = np.argmax(y_pred, axis=1).reshape([-1, n_cases])
         y_pred = np.sum(y_pred, axis=1)
-        y_pred[y_pred <= 5] = 0
-        y_pred[y_pred > 5] = 1
+        y_pred[y_pred <= n_cases // 2] = 0
+        y_pred[y_pred > n_cases // 2] = 1
 
         acc = np.sum(np.array(y) == np.array(y_pred)) / len(y)
         print("Accuracy =", acc)

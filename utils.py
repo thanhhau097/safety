@@ -100,8 +100,8 @@ def get_shorter_sequence(X, y):
 
     for j, x in enumerate(X):
         X_i = []
-        for i in range(len(x) // 3):
-            X_i.append(x[i * 3 + np.random.randint(2)])
+        for i in range(len(x) // 2):
+            X_i.append(x[i * 2 + np.random.randint(2)])
 
         new_X.append(X_i)
     return new_X, y
