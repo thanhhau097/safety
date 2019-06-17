@@ -59,6 +59,10 @@ This model have a light weight architecture, and it can predict very fast.
 # Training
 To train, you need to run training.py file, with parameter is path to data folder.
 
+```buildoutcfg
+python training.py
+```
+
 Folder structure:
 ```buildoutcfg
 .
@@ -73,6 +77,10 @@ Folder structure:
 
 # Testing 
 To test, you need to run testing.py file, with parameter is path to data folder.
+
+```buildoutcfg
+python testing.py
+```
 
 This data folder have same structure with training data folder.
 ```buildoutcfg
