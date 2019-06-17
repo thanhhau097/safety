@@ -33,7 +33,7 @@ To make model more efficient, there are some preprocessing steps that I used:
 - *Ignore bookingID, second fields*: because they are not necessary.
 - *Ignore time steps that have large Accuracy value*: because they are inaccurate.
 - *Ignore the last time steps that those velocity are equal to 0*: because those time steps have no meaning.
-- *Normalize each field of data into [0, 1]*: It will make our model more easier in training.
+- *Normalize each field of data into [0, 1]*: It will make our model more easier in training and boost our model accuracy.
 - Because of lacking data, I used a technique to **generate more data**:
     - With each sequence, I will generate a new sequence by getting one time step for each two time steps. For example:
         - Initiatial sequence: 0, 1, 2, 3, 4, 5, 6, 7
