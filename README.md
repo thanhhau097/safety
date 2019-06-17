@@ -54,7 +54,7 @@ In this model, I use **TCN** architecture to train a sequence model. TCN can lea
 
 This model have a light weight architecture, and it can predict very fast.
 
-![](tcn.png)
+![](tcn/tcn.png)
 
 # Training
 To train, you need to run training.py file, with parameter is path to data folder.
