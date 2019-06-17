@@ -59,7 +59,31 @@ This model have a light weight architecture, and it can predict very fast.
 # Training
 To train, you need to run training.py file, with parameter is path to data folder.
 
+Folder structure:
+```buildoutcfg
+.
++-- features
+|   +-- features_1.csv
+|   +-- features_2.csv
+|   +-- features_3.csv
+|   +-- features_4.csv
++-- labels
+|   +-- labels.csv
+```
+
 # Testing 
 To test, you need to run testing.py file, with parameter is path to data folder.
+
+This data folder have same structure with training data folder.
+```buildoutcfg
+.
++-- features
+|   +-- features_1.csv
+|   +-- features_2.csv
+|   +-- features_3.csv
+|   +-- features_4.csv
++-- labels
+|   +-- labels.csv
+```
 
 This method will give us a csv file, which is similar to labels file.
