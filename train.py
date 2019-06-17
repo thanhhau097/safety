@@ -5,6 +5,11 @@ from utils import *
 
 
 def train(data_folder='data'):
+    """
+    Training model
+    :param data_folder: path to data folder
+    :return:
+    """
     model = Model()
     batch_size = 64
     X, y, _, _ = get_data(data_folder)
@@ -15,7 +20,8 @@ def train(data_folder='data'):
     val_gen = generator(X_val, y_val, batch_size)
 
     model.model.fit_generator(train_gen, epochs=100, steps_per_epoch=len(y_train) // batch_size,
-                             validation_data=val_gen, validation_steps=len(y_val) // batch_size)
+                              validation_data=val_gen, validation_steps=len(y_val) // batch_size)
+
 
 if __name__ == "__main__":
     train(data_folder='data')

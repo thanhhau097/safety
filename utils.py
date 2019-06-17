@@ -9,6 +9,11 @@ import numpy as np
 
 
 def read_data(folder):
+    """
+    Read features and labels from data folder
+    :param folder: path to data folder
+    :return:
+    """
     i = 0
 
     features_path = os.path.join(folder, 'features')
@@ -29,14 +34,22 @@ def read_data(folder):
 
 
 def preprocess_data(features, labels):
-    # có normalize theo cột hay không?
-    # càn kiểm tra những timestep cuối có Speed = 0 hay không, nếu có thì bỏ đi để giảm kích thước dữ liệu, vì nếu dừng lại rồi thì không ảnh hưởng
-    # đến kết quả là nguy hiểm hay không.
-    # kiểm tra để loại bỏ tốc độ xuất phát = 0 và tốc độ kết thúc = 0
-    # lưu ý: trường second có những trường hợp không phải liên tục 0, 1, 2... cần xử lý những second cách nhau quá xa?
-    # các bước thực hiện: -> groupby booking -> loại theo speed -> normalize -> groupby booking -> get values
+    """
+    Preprocessing data
+
+    :param features: dataframe from features folder
+    :param labels: labels from labels folder
+    :return:
+        X: list of sequence features
+        y: labels
+        bookingIDs: list of bookingIDs
+        ignored_bookingIDs: list of bookingIDs that are not used after preprocessing data
+    """
+
+    # ignore large error in GPS
     features = features[features.Accuracy <= 100]
 
+    # feature scaling
     x = features.values[:, 1:]  # returns a numpy array
     min_max_scaler = preprocessing.MaxAbsScaler()
     x_scaled = min_max_scaler.fit_transform(x)
@@ -61,13 +74,34 @@ def preprocess_data(features, labels):
 
 
 def get_data(folder):
+    """
+    Get data for training or testing
+
+    :param folder: path to data folder
+    :return:
+        X: list of sequence features
+        y: labels
+        bookingIDs: list of bookingIDs
+        ignored_bookingIDs: list of bookingIDs that are not used after preprocessing data
+    """
     features, labels = read_data(folder)
     X, y, bookingIDs, ignored_bookingIDs = preprocess_data(features, labels)
 
-    return X, y, bookingIDs
+    return X, y, bookingIDs, ignored_bookingIDs
 
 
 def ignore_velocity_at_post(X, y, bookingIDs):
+    """
+    Ignore the last time steps that those velocity are equal to 0
+    :param X: list of sequence features
+    :param y: labels
+    :param bookingIDs: list of bookingIDs
+    :return:
+        X: list of sequence features
+        y: labels
+        bookingIDs: list of bookingIDs
+        ignored_bookingIDs: list of bookingIDs that are not used after preprocessing data
+    """
     new_X = []
 
     set_i = set()
@@ -96,6 +130,14 @@ def ignore_velocity_at_post(X, y, bookingIDs):
 
 
 def get_shorter_sequence(X, y):
+    """
+    Generating more data for training and testing
+
+    :param X: list of sequence features
+    :param y: labels
+    :return:
+
+    """
     new_X = []
 
     for j, x in enumerate(X):
@@ -108,6 +150,13 @@ def get_shorter_sequence(X, y):
 
 
 def generator(X, y, batch_size=32):
+    """
+    Generator for training
+    :param X: list of sequence features
+    :param y: labels
+    :param batch_size: batch size
+    :return:
+    """
     while True:
         X_temp, y_temp = shuffle(X, y)
         for i in range(len(y_temp) // batch_size):
@@ -128,6 +177,14 @@ def generator(X, y, batch_size=32):
 
 
 def generator_test(X, y, batch_size=4, n_cases=10):
+    """
+    Generator for testing
+    :param X: list of sequence features
+    :param y: labels
+    :param batch_size: batch size
+    :param n_cases: numbers of cases that we use for each booking in test data
+    :return:
+    """
     while True:
         for i in range(len(y) // batch_size):
             max_timesteps = 0

@@ -19,4 +19,9 @@ class Model():
         self.model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
 
     def load_weights(self, filepath):
+        """
+        Load pretrained weights of model
+        :param filepath: path to weight file
+        :return:
+        """
         self.model.load_weights(filepath=filepath)

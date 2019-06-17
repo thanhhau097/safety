@@ -5,6 +5,14 @@ from utils import *
 
 
 def write_test_result(filepath, bookingIDs, y):
+    """
+    Write test result to csv file
+
+    :param filepath: path of csv file
+    :param bookingIDs: list of bookingIDs
+    :param y: list of results which were predicted
+    :return:
+    """
     df = pd.DataFrame()
     df['bookingID'] = bookingIDs
     df['label'] = y
@@ -13,6 +21,12 @@ def write_test_result(filepath, bookingIDs, y):
 
 
 def test(folder):
+    """
+    Test model
+
+    :param folder: path to data folder
+    :return:
+    """
     model = Model()
 
     batch_size = 1
