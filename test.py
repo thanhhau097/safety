@@ -18,7 +18,7 @@ def test(folder):
     batch_size = 1
     X, y, bookingIDs, ignored_bookingIDs = get_data(folder)
 
-    model.load_weights('tcn.h5')
+    model.load_weights('weights/tcn.h5')
     print("LOAD WEIGHTS COMPLETELY")
 
     n_cases = 10
